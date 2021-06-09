@@ -44,3 +44,7 @@ struct PersonData{
     Person get_current_person();
     void update_size();
 };
+
+// added typedef for indexed array of pairs
+typedef pair<int,int> DualData;
+// DualData is the pair of ints where it's ordered <record id, PIN>

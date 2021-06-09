@@ -1,4 +1,4 @@
-
+// this is about reading from binary --> related to what needs to happen to build dynamic array
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -48,6 +48,9 @@ int main () {
         
         show_person(p);
 
+        // SO HERE instead of just cout'ing stuff we could be taking the ID and PIN as ints and storing them
+        // blocks
+        
         myfile.close();
     }
 

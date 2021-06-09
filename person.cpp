@@ -24,7 +24,7 @@ int convert_pin_n(std::string pin_s){
 }
 
 Person::Person(string _pin, string _name, string _email, string _jobtitle, string _phone){
-
+// this is where the conversion is happening
     strcpy(pin_s, _pin.c_str());
     pin_n = convert_pin_n(pin_s);
     strcpy(name, _name.c_str());
@@ -41,6 +41,7 @@ bool Person::isEmpty(){
 
 PersonData::PersonData(){
     current = 0;
+    // NOTE: myfile is person.bin (binary)
     myfile = fstream("person.bin", ios::in | ios::out | ios::binary);
 
     update_size();
