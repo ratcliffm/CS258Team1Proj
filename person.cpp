@@ -66,6 +66,7 @@ PersonData::~PersonData(){
     myfile.close();
 }
 
+// this will be staying this way (functon already completed by Fabrizzio)
 Person PersonData::get_person_by_id(int id){
 
     Person p;
@@ -90,8 +91,31 @@ Person PersonData::get_person_by_id(int id){
 
 }
 
-Person PersonData::get_person_by_pin(int pin){
+/* This section of the file is sort of just my thoughts/steps we need to take, 
+please feel free to change any code as you see fit. 
+I used person.cpp because most of it will probalby end up going in here since the 
+following function is what we need to change. This is just a starting place 
+so we can sort of see what needs ot be done. */ 
 
+// steps to take in order to perform the search: 
+
+// create a dynamic array to store the ID and Pin 
+// This will be using the type def DualData
+DualData * pinSortedArray; 
+pinSortedArray = new DualData[]; 
+
+// Read in binary file using blocks 
+// read the data into the new array 
+// sort the array by pin 
+// write out the new array into a new binary file 
+// use new binary file as input for get_person_by_pin 
+
+
+// Code that Frabrizzio wrote and comments on what we need to do: 
+// We need to update this function to take in the sorted array file and use quick sort
+Person PersonData::get_person_by_pin(int pin){
+// open the binary file
+// read it in blocks and perform a quick search 
     Person p;
     char buff[PERSON_SIZE];
 
