@@ -101,14 +101,87 @@ so we can sort of see what needs ot be done. */
 
 // create a dynamic array to store the ID and Pin 
 // This will be using the type def DualData
-DualData * pinSortedArray; 
-pinSortedArray = new DualData[]; 
+DualData pinSortedArray = new DualData[]; 
 
-// Read in binary file using blocks 
-// read the data into the new array 
+// Read in binary file using blocks and assign to new array 
+ios::binary_file_type  transorm_bin_into_array(og_bin_file) {
+fstream myfile ("person.bin", ios::in | ios::binary);
+if (myfile.is_open()){
+    pinSortedArray read_new_array(int pos);
+    pinSortedArray = new DualData[]; 
+
+    return pinSortedArray;
+}
+}
+
 // sort the array by pin 
-// write out the new array into a new binary file 
+DualData SortByPIN(thearray) {
+   DualData newarr;
+   // sort through vector to return smallest coord
+   for (unsigned int i = 0; i < thearray.size(); ++i) {
+       for (unsigned int j = i + 1; j < thearray.size(); ++j) {
+       if (thearray[i] < thearray[j]) {
+           swap(thearray[i], thearray[j]);
+       }
+   } 
+   }
+for (unsigned int i = 0; i < thearray.size(); ++i) {
+       for (unsigned int j = i + 1; j < thearray.size(); ++j) {
+      newarr[i] = thearray[i]; 
+newarr[j] = thearray[j]; 
+       }return newarr; 
+
+// write out the new array into a new binary file
+void WriteBin(sortedArrayByPin, ofstream &oppm) {
+ // for each pixel assign to color and then turn back to binary
+// Do I need to be using blocks right here? I think I Do 
+   for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
+     unsigned int p = DualData.pin;
+     unsigned int r = DualData.ID;
+     oppm.write(reinterpret_cast<char *>(&p), 1);
+     oppm.write(reinterpret_cast<char *>(&r), 1);
+   }
+ // close file
+ oppm.close();
+}
+
 // use new binary file as input for get_person_by_pin 
+int n = sizeof(newArray) / sizeof(newArray[0]);
+   quickSort(newArray, 0, n - 1);
+ 
+int partition (int newArray[], int low, int high)
+{
+   int pivot = newArray[high]; // pivot
+   int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+   for (int j = low; j <= high - 1; j++)
+   {
+       // If current element is smaller than the pivot
+       if (newArray[j] < pivot)
+       {
+           i++; // increment index of smaller element
+           swap(&newArray[i], &newArray[j]);
+       }
+   }
+   swap(&newArray[i + 1], &newArray[high]);
+   return (i + 1);
+}
+/* The main function that implements QuickSort
+arr[] --> Array to be sorted,
+low --> Starting index,
+high --> Ending index */
+void quickSort(int newArray[], int low, int high)
+{
+   if (low < high){
+       /* pi is partitioning index, arr[p] is now
+       at right place */
+       int pi = partition(newArray, low, high);
+       // Separately sort elements before
+       // partition and after partition
+       quickSort(newArray, low, pi - 1);
+       quickSort(newArray, pi + 1, high);
+   }
+}
+// End of team written code. 
 
 
 // Code that Frabrizzio wrote and comments on what we need to do: 
