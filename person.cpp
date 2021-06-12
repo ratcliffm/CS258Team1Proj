@@ -100,57 +100,11 @@ I used person.cpp because most of it will probalby end up going in here since th
 following function is what we need to change. This is just a starting place 
 so we can sort of see what needs ot be done. */ 
 
-// steps to take in order to perform the search: 
-
 // FIXME: moved creation of array to main
-
-
-// Read in binary file using blocks and assign to new array 
-// FIXME: is this a function def?
-//ios::binary_file_type  transorm_bin_into_array(og_bin_file) {
-
-//my vers of func:
 
 /* goal: "You can create an array of your index structure, 
 read blocks of records (person), or one by one, and add the key and record num in each array position. "
 */
-void transform_bin_into_array() {
-// make person.bin == myfile stream
-    fstream myfile ("person.bin", ios::in | ios::out |ios::binary);
-    if (myfile.is_open()) {
-        // call gotoFirstPerson to set seeker at beginning of file
-
-// this is how i think we can actually assign as we move through this
-dynamic_array[0].first = FIRST RECORD;
-dynamic_array[0].second = FIRST PIN;
-
-            for (int n=0; n < BLOCKS; n++){
-
-            int i = 0;
-
-            while ( getline (myfile,line) ) {            
-                persons[i] = tokenize_line(line);
-                i++;
-                if (i >= BLOCK_SIZE) break;
-            }
-
-            myfile2.write((char*)&persons, sizeof(Person) * BLOCK_SIZE);
-
-        }
-
-        pinSortedArray read_new_array(int pos);
-        pinSortedArray = new DualData[]; 
-
-        return pinSortedArray;
-        // FIXME: i dont think this needs to return anything... if it sorts within this function --> straight to storage with ye
-    }
-    else {
-        // error msg for failure to open
-        cout << "Error: Could Not Open File" << endl;
-    }
-    }
-
-
 
 // sort the array by pin 
 // FIXME: should this be void return type? i dont think it needs to return a pair
@@ -222,13 +176,7 @@ void quickSort(int newArray[], int low, int high)
 }
 // End of team written code. 
 
-<<<<<<< HEAD
-
-
-
-=======
 // Emily has been working on this part (remove this message before submitting project)
->>>>>>> 169c22e76383a55642a786d363cf966b8b8b8406
 // Code that Frabrizzio wrote and comments on what we need to do: 
 // We need to update this function to take in the sorted array file and use binary search
 Person PersonData::get_person_by_pin(int pin){
