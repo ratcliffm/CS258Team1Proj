@@ -222,14 +222,18 @@ void quickSort(int newArray[], int low, int high)
 }
 // End of team written code. 
 
+<<<<<<< HEAD
 
 
 
+=======
+// Emily has been working on this part (remove this message before submitting project)
+>>>>>>> 169c22e76383a55642a786d363cf966b8b8b8406
 // Code that Frabrizzio wrote and comments on what we need to do: 
-// We need to update this function to take in the sorted array file and use quick sort
+// We need to update this function to take in the sorted array file and use binary search
 Person PersonData::get_person_by_pin(int pin){
 // open the binary file
-// read it in blocks and perform a quick search 
+// read it in blocks and perform a binary search 
     Person p;
     char buff[PERSON_SIZE];
 
@@ -244,7 +248,7 @@ Person PersonData::get_person_by_pin(int pin){
     return (Person){};
 
 }
-
+// End of Emily's code (remove this message before submitting project)
 
 void PersonData::goto_first_person(){
     myfile.seekg(0, ios::beg);
