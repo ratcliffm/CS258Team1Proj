@@ -9,10 +9,6 @@
 #include <bits/stdc++.h>
 #include <chrono>
 
-// added blocks for segmented reading and writing
-#define BLOCK_SIZE 10000
-#define BLOCKS 10
-
 #include "person.h"
 
 using namespace std;
@@ -55,20 +51,7 @@ void searching_person(PersonData &pd){
 
 }
 
-// ADDED: function that reads from binary, from readdata.cpp
-Person read_person(int pos, fstream myfile){
 
-    Person p;
-
-    myfile.seekg(pos * PERSON_SIZE);    
-    char buff[PERSON_SIZE];
-    myfile.read((char*)buff, PERSON_SIZE);
-    memcpy(&p, buff, PERSON_SIZE);
-
-    return p;
-}
-
-// beginning of main
 int main () {
   
     string line;
@@ -86,64 +69,6 @@ int main () {
     cout << "---------------------------------------------" << endl;
     std::cout << "Elapsed time: " << diff.count() << " s\n";
     cout << "---------------------------------------------" << endl;
-
-
-// code edits
-// create a dynamic array to store the ID and Pin 
-// pointer for dynamically allocating array; pointer to DualData type
-DualData * pinSortedArray;
-
-// array size set to be able to hold entirety of data 
-int array_size = BLOCK_SIZE * 10;
-// allocate memory for array
-pinSortedArray = new DualData[array_size]; 
-
-/* goal: "You can create an array of your index structure, 
-read blocks of records (person), or one by one, and add the key and record num in each array position. "
-*/
-
-// make person.bin == myfile stream
-    fstream infile ("person.bin", ios::in | ios::out |ios::binary);
-    // check if myfile is open
-    if (infile.is_open()) {
-        // call gotoFirstPerson to set seeker at beginning of file
-        goto_first_person();
-        // new iterator for keeping track of array count
-        // outside of loops so it will go 0-999,999
-        int array_count = 0;
-        // begin for loop that reads in blocks
-            for (int n=0; n < BLOCKS; n++){
-            // iteration begins at 0
-            int i = 0; 
-            // continue while end of file not reached
-            while ( !infile.eof()) {        
-                // goes to position i in person.bin and reads a person struct
-                Person person_input = read_person(array_count, infile);
-                // first part of array pair is the record ID
-                // starts at 1 because the first person is record 1, not record 0
-                pinSortedArray[array_count].first = array_count + 1; 
-                // second part of array pair is the PIN 
-                // pin is in numeric form
-                pinSortedArray[array_count].second = person_input.pin_n;
-                // iteration of i and of array_count
-                i++;
-                array_count++;
-                // break upon reaching block_size
-                if (i >= BLOCK_SIZE) break;
-            }
-        }
-    }
-    else {
-        // error msg for failure to open
-        cout << "Error: Could Not Open File" << endl;
-    }
-
-    // assume array has been built now
-    // sorting time
-    // then write to binary file
-
-
-// end of code edits
 
     return 0;
 
