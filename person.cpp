@@ -6,6 +6,9 @@
 #include <fstream>
 #include <bits/stdc++.h>
 
+// added blocks for segmented reading and writing
+#define BLOCK_SIZE 10000
+#define BLOCKS 10
 
 #include "person.h"
 
@@ -99,22 +102,58 @@ so we can sort of see what needs ot be done. */
 
 // steps to take in order to perform the search: 
 
-// create a dynamic array to store the ID and Pin 
-// This will be using the type def DualData
-DualData pinSortedArray = new DualData[]; 
+// FIXME: moved creation of array to main
+
 
 // Read in binary file using blocks and assign to new array 
-ios::binary_file_type  transorm_bin_into_array(og_bin_file) {
-fstream myfile ("person.bin", ios::in | ios::binary);
-if (myfile.is_open()){
-    pinSortedArray read_new_array(int pos);
-    pinSortedArray = new DualData[]; 
+// FIXME: is this a function def?
+//ios::binary_file_type  transorm_bin_into_array(og_bin_file) {
 
-    return pinSortedArray;
-}
-}
+//my vers of func:
+
+/* goal: "You can create an array of your index structure, 
+read blocks of records (person), or one by one, and add the key and record num in each array position. "
+*/
+void transform_bin_into_array() {
+// make person.bin == myfile stream
+    fstream myfile ("person.bin", ios::in | ios::out |ios::binary);
+    if (myfile.is_open()) {
+        // call gotoFirstPerson to set seeker at beginning of file
+
+// this is how i think we can actually assign as we move through this
+dynamic_array[0].first = FIRST RECORD;
+dynamic_array[0].second = FIRST PIN;
+
+            for (int n=0; n < BLOCKS; n++){
+
+            int i = 0;
+
+            while ( getline (myfile,line) ) {            
+                persons[i] = tokenize_line(line);
+                i++;
+                if (i >= BLOCK_SIZE) break;
+            }
+
+            myfile2.write((char*)&persons, sizeof(Person) * BLOCK_SIZE);
+
+        }
+
+        pinSortedArray read_new_array(int pos);
+        pinSortedArray = new DualData[]; 
+
+        return pinSortedArray;
+        // FIXME: i dont think this needs to return anything... if it sorts within this function --> straight to storage with ye
+    }
+    else {
+        // error msg for failure to open
+        cout << "Error: Could Not Open File" << endl;
+    }
+    }
+
+
 
 // sort the array by pin 
+// FIXME: should this be void return type? i dont think it needs to return a pair
 DualData SortByPIN(thearray) {
    DualData newarr;
    // sort through vector to return smallest coord
@@ -182,6 +221,8 @@ void quickSort(int newArray[], int low, int high)
    }
 }
 // End of team written code. 
+
+
 
 
 // Code that Frabrizzio wrote and comments on what we need to do: 
