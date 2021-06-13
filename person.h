@@ -38,6 +38,7 @@ struct PersonData{
     ~PersonData();
     Person get_person_by_id(int id);
     Person get_person_by_pin(int pin_n, fstream &ppm);
+    Person linear_search(int pin);
     int add_person(Person &p);
     void goto_first_person();
     bool next_person();

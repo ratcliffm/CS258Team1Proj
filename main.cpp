@@ -43,7 +43,7 @@ void adding_person(PersonData &pd){
 
 void searching_person(PersonData &pd, fstream &ppm){
 
-    Person p = pd.get_person_by_pin(254865682);
+    Person p = pd.get_person_by_pin(254865682, ppm);
 
     if (p.isEmpty()){
         cout << "---------------------------------------------" << endl;

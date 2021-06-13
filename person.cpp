@@ -185,11 +185,9 @@ void quickSort(int newArray[], int low, int high)
 
 
 // FIXME: Emily is working on this part!
-// Code that Frabrizzio wrote and comments on what we need to do: 
-// We need to update this function to take in the sorted array file and use binary search
-Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
-    // open the binary file
-    // read it in blocks and perform a binary search 
+
+// Original version of the get_person_by_pin function written by Fabrizzio
+Person PersonData::linear_search(int pin) {
     Person p;
     char buff[PERSON_SIZE];
 
@@ -197,10 +195,47 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
     while (next_person()){
         p = get_current_person();
-        if (p.pin_n == pin_n)
+        if (p.pin_n == pin)
             return p;
+    } 
+
+    return (Person){};
+}
+
+
+// Code that Frabrizzio wrote and comments on what we need to do: 
+// We need to update this function to take in the sorted array file and use binary search
+Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
+    // open the binary file
+    // read it in blocks and perform a binary search 
+
+    /*
+    // for each pixel assign to color and then turn back to binary
+    // Do I need to be using blocks right here? I think I Do 
+    for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
+        unsigned int p = DualData.pin;
+        unsigned int r = DualData.ID;
+        oppm.write(reinterpret_cast<char *>(&p), 1);
+        oppm.write(reinterpret_cast<char *>(&r), 1);
+    }
+    // close file
+    oppm.close();
+    */
+
+
+    // getting the length of the file
+    if (ppm) {
+        ppm.seekg(0, ppm.end);
+        int length = ppm.tellg();
+        ppm.seekg(0, ppm.beg);
     }
     
+    while (ppm.eof()) {
+        ppm.read()
+    }
+
+
+    Person p;
     
     // Set BEG = lower_bound
     int beg = goto_first_person();
@@ -227,9 +262,12 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
         if (pos = -1) {
             cout << "Pin not found, search unsuccessful" << endl;
+            return p;
         }
 
     }
+
+    return p;
 
     // While (BEG <= END) {
     //  Set MID = ((BEG + END) / 2)
@@ -246,8 +284,6 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // IF (POS = -1){
     //  Print "VALUE NOT FOUND, SEARCH UNSUCCESSFUL"
     // }
-
-    return (Person){}; 
 
 }
 // End of Emily's code
