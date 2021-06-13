@@ -130,6 +130,7 @@ for (unsigned int i = 0; i < array_size; ++i) {
 }
 
 // write out the new array into a new binary file
+// FIXME: katherine work on this!
 void WriteBin(sortedArrayByPin, ofstream &oppm) {
  // for each pixel assign to color and then turn back to binary
 // Do I need to be using blocks right here? I think I Do 
@@ -144,8 +145,10 @@ void WriteBin(sortedArrayByPin, ofstream &oppm) {
 }
 
 // use new binary file as input for get_person_by_pin 
+// FIXME: what is this portion??
 int n = sizeof(newArray) / sizeof(newArray[0]);
    quickSort(newArray, 0, n - 1);
+   
  
 int partition (int newArray[], int low, int high)
 {

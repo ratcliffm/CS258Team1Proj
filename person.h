@@ -52,5 +52,5 @@ typedef pair<int,int> DualData;
 // new functions declarations
 void SortByPIN(DualData the_array[], int array_size);
 // FIXME add write bin fx
-// FIXME add quicksort fx
+
 
