@@ -154,7 +154,7 @@ int main () {
 
         // use binary file to search 
         // FIXME searching function here will be udpated in person.cpp to be a binary search
-        searching_person(pd);
+        searching_person(pd, workingFile);
     }
 
     // end of code edits

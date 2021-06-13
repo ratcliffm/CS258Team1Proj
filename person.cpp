@@ -132,7 +132,7 @@ for (unsigned int i = 0; i < array_size; ++i) {
 // write out the new array into a new binary file
 // FIXME: katherine work on this!
 void WriteBin(DualData sortedArrayByPin[], ofstream &oppm) {
- // for each pixel assign to color and then turn back to binary
+// for each pixel assign to color and then turn back to binary
 // Do I need to be using blocks right here? I think I Do 
    for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
      unsigned int p = DualData.pin;
@@ -184,12 +184,12 @@ void quickSort(int newArray[], int low, int high)
 }
 
 
-// Emily has been working on this part (remove this message before submitting project)
+// FIXME: Emily is working on this part!
 // Code that Frabrizzio wrote and comments on what we need to do: 
 // We need to update this function to take in the sorted array file and use binary search
-Person PersonData::get_person_by_pin(int pin, fstream &ppm){
-// open the binary file
-// read it in blocks and perform a binary search 
+Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
+    // open the binary file
+    // read it in blocks and perform a binary search 
     Person p;
     char buff[PERSON_SIZE];
 
@@ -197,14 +197,37 @@ Person PersonData::get_person_by_pin(int pin, fstream &ppm){
 
     while (next_person()){
         p = get_current_person();
-        if (p.pin_n == pin)
+        if (p.pin_n == pin_n)
             return p;
     }
     
     return (Person){};
 
+    // Set BEG = lower_bound
+    int beg = goto_first_person();
+    // Set END = upper_bound
+    int end;
+    // Set POS = -1
+    int pos = -1;
+
+    // While (BEG <= END) {
+    //  Set MID = ((BEG + END) / 2)
+    //  IF (ARR[MID] == VAL) {
+    //      POS = MID
+    //      Print POS
+    //      BREAK LOOP
+    //  } ELSE IF (ARR[MID] > VAL) {
+    //      Set END = MID - 1
+    //  } ELSE {
+    //      Set BEG = MID + 1
+    //  }
+    // }
+    // IF (POS = -1){
+    //  Print "VALUE NOT FOUND, SEARCH UNSUCCESSFUL"
+    // }
+
 }
-// End of Emily's code (remove this message before submitting project)
+// End of Emily's code
 
 // End of team written code. 
 

@@ -37,7 +37,7 @@ struct PersonData{
     PersonData();
     ~PersonData();
     Person get_person_by_id(int id);
-    Person get_person_by_pin(int pin_n);
+    Person get_person_by_pin(int pin_n, fstream &ppm);
     int add_person(Person &p);
     void goto_first_person();
     bool next_person();
