@@ -107,22 +107,27 @@ read blocks of records (person), or one by one, and add the key and record num i
 */
 
 // sort the array by pin 
-// FIXME: should this be void return type? i dont think it needs to return a pair
-DualData SortByPIN(thearray) {
-   DualData newarr;
+// passing array by address so it will be modified outside of function
+void SortByPIN(DualData the_array[], int array_size) {
+   DualData new_arr;
    // sort through vector to return smallest coord
-   for (unsigned int i = 0; i < thearray.size(); ++i) {
-       for (unsigned int j = i + 1; j < thearray.size(); ++j) {
-       if (thearray[i] < thearray[j]) {
-           swap(thearray[i], thearray[j]);
+   for (unsigned int i = 0; i < array_size; ++i) {
+       for (unsigned int j = i + 1; j < array_size; ++j) {
+       if (the_array[i] < the_array[j]) {
+           swap(the_array[i], the_array[j]);
        }
    } 
    }
-for (unsigned int i = 0; i < thearray.size(); ++i) {
-       for (unsigned int j = i + 1; j < thearray.size(); ++j) {
-      newarr[i] = thearray[i]; 
-newarr[j] = thearray[j]; 
-       }return newarr; 
+   // FIXME ZONE -- new arr is a PAIR... need to assign a first and second
+for (unsigned int i = 0; i < array_size; ++i) {
+       for (unsigned int j = i + 1; j < array_size; ++j) {
+           // FIXME -- WHAT ARE NEW ARR I AND J REPRESENTING?
+        new_arr[i] = the_array[i]; 
+        new_arr[j] = the_array[j]; 
+       }
+}
+// return nothing because array will simply be sorted
+}
 
 // write out the new array into a new binary file
 void WriteBin(sortedArrayByPin, ofstream &oppm) {

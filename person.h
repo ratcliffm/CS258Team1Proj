@@ -48,3 +48,9 @@ struct PersonData{
 // added typedef for indexed array of pairs
 typedef pair<int,int> DualData;
 // DualData is the pair of ints where it's ordered <record id, PIN>
+
+// new functions declarations
+void SortByPIN(DualData the_array[], int array_size);
+// FIXME add write bin fx
+// FIXME add quicksort fx
+

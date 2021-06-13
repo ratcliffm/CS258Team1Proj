@@ -140,8 +140,11 @@ read blocks of records (person), or one by one, and add the key and record num i
 
     // assume array has been built now
     // sorting time
-    // then write to binary file
+    // FIXME: i think this function needs review in person.cpp
+    SortByPIN(pinSortedArray, array_size);
 
+    // then write to binary file
+    
 
 // end of code edits
 
