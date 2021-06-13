@@ -131,7 +131,7 @@ for (unsigned int i = 0; i < array_size; ++i) {
 
 // write out the new array into a new binary file
 // FIXME: katherine work on this!
-void WriteBin(sortedArrayByPin, ofstream &oppm) {
+void WriteBin(DualData sortedArrayByPin[], ofstream &oppm) {
  // for each pixel assign to color and then turn back to binary
 // Do I need to be using blocks right here? I think I Do 
    for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
