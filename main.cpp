@@ -41,7 +41,7 @@ void adding_person(PersonData &pd){
 
 }
 
-void searching_person(PersonData &pd){
+void searching_person(PersonData &pd, fstream &ppm){
 
     Person p = pd.get_person_by_pin(254865682);
 
@@ -80,8 +80,7 @@ int main () {
 
     // FIXME changes around array building will have to occur here before search
 
-    // FIXME searching function here will be udpated in person.cpp to be a bianry search
-    searching_person(pd);
+    
 
     auto end = std::chrono::steady_clock::now();   
     std::chrono::duration<double> diff = end-start;
@@ -91,22 +90,22 @@ int main () {
     cout << "---------------------------------------------" << endl;
 
 
-// code edits
-// create a dynamic array to store the ID and Pin 
-// pointer for dynamically allocating array; pointer to DualData type
-DualData * pinSortedArray;
+    // code edits
+    // create a dynamic array to store the ID and Pin 
+    // pointer for dynamically allocating array; pointer to DualData type
+    DualData * pinSortedArray;
 
-// array size set to be able to hold entirety of data 
-int array_size = BLOCK_SIZE * 10;
-// allocate memory for array
-pinSortedArray = new DualData[array_size]; 
+    // array size set to be able to hold entirety of data 
+    int array_size = BLOCK_SIZE * 10;
+    // allocate memory for array
+    pinSortedArray = new DualData[array_size]; 
 
-/* goal: "You can create an array of your index structure, 
-read blocks of records (person), or one by one, and add the key and record num in each array position. "
-*/
+    /* goal: "You can create an array of your index structure, 
+    read blocks of records (person), or one by one, and add the key and record num in each array position. "
+    */
 
-// make person.bin == myfile stream
-    fstream infile ("person.bin", ios::in | ios::out |ios::binary);
+    // make person.bin == myfile stream
+    ifstream infile ("person.bin", ios::in | ios::out |ios::binary);
     // check if myfile is open
     if (infile.is_open()) {
         // call gotoFirstPerson to set seeker at beginning of file
@@ -115,7 +114,7 @@ read blocks of records (person), or one by one, and add the key and record num i
         // outside of loops so it will go 0-999,999
         int array_count = 0;
         // begin for loop that reads in blocks
-            for (int n=0; n < BLOCKS; n++){
+        for (int n=0; n < BLOCKS; n++){
             // iteration begins at 0
             int i = 0; 
             // continue while end of file not reached
@@ -146,10 +145,19 @@ read blocks of records (person), or one by one, and add the key and record num i
     // FIXME: i think this function needs review in person.cpp
     SortByPIN(pinSortedArray, array_size);
 
-    // then write to binary file
-    WriteBin();
+    ofstream workingFile ("workingFile.bin", ios::out |ios::binary); 
+    if (workingFile.is_open()){
+        
+        // then write to binary file
+        // FIXME: function needs arguments to run
+        WriteBin(pinSortedArray, workingFile);
 
-// end of code edits
+        // use binary file to search 
+        // FIXME searching function here will be udpated in person.cpp to be a binary search
+        searching_person(pd);
+    }
+
+    // end of code edits
 
     return 0;
 

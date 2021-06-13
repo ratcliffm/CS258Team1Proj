@@ -130,8 +130,8 @@ for (unsigned int i = 0; i < array_size; ++i) {
 }
 
 // write out the new array into a new binary file
-void WriteBin(sortedArrayByPin, ofstream &oppm) {
- // for each pixel assign to color and then turn back to binary
+void WriteBin(DualData sortedArrayByPin[], ofstream &oppm) {
+// for each pixel assign to color and then turn back to binary
 // Do I need to be using blocks right here? I think I Do 
    for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
      unsigned int p = DualData.pin;
@@ -144,6 +144,7 @@ void WriteBin(sortedArrayByPin, ofstream &oppm) {
 }
 
 // use new binary file as input for get_person_by_pin 
+
 int n = sizeof(newArray) / sizeof(newArray[0]);
    quickSort(newArray, 0, n - 1);
  
@@ -179,12 +180,12 @@ void quickSort(int newArray[], int low, int high)
        quickSort(newArray, pi + 1, high);
    }
 }
-// End of team written code. 
+
 
 // Emily has been working on this part (remove this message before submitting project)
 // Code that Frabrizzio wrote and comments on what we need to do: 
 // We need to update this function to take in the sorted array file and use binary search
-Person PersonData::get_person_by_pin(int pin){
+Person PersonData::get_person_by_pin(int pin, fstream &ppm){
 // open the binary file
 // read it in blocks and perform a binary search 
     Person p;
@@ -202,6 +203,8 @@ Person PersonData::get_person_by_pin(int pin){
 
 }
 // End of Emily's code (remove this message before submitting project)
+
+// End of team written code. 
 
 void PersonData::goto_first_person(){
     myfile.seekg(0, ios::beg);
