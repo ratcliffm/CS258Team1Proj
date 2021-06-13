@@ -201,14 +201,35 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
             return p;
     }
     
-    return (Person){};
-
+    
     // Set BEG = lower_bound
     int beg = goto_first_person();
     // Set END = upper_bound
     int end;
     // Set POS = -1
     int pos = -1;
+
+    int mid;
+
+    while (beg <= end) {
+        mid = (beg + end) / 2;
+        //  IF (ARR[MID] == pin_n)
+        if () {
+            pos = mid;
+            cout << "Position: " << pos << endl;
+            break;
+        // ELSE IF (ARR[MID] > pin_n)
+        } else if () {
+            end = mid - 1;
+        } else {
+            beg = mid + 1;
+        }
+
+        if (pos = -1) {
+            cout << "Pin not found, search unsuccessful" << endl;
+        }
+
+    }
 
     // While (BEG <= END) {
     //  Set MID = ((BEG + END) / 2)
@@ -225,6 +246,8 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // IF (POS = -1){
     //  Print "VALUE NOT FOUND, SEARCH UNSUCCESSFUL"
     // }
+
+    return (Person){}; 
 
 }
 // End of Emily's code
