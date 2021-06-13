@@ -78,7 +78,10 @@ int main () {
 
     auto start = std::chrono::steady_clock::now();
 
-    searching_person(pd)    ;
+    // FIXME changes around array building will have to occur here before search
+
+    // FIXME searching function here will be udpated in person.cpp to be a bianry search
+    searching_person(pd);
 
     auto end = std::chrono::steady_clock::now();   
     std::chrono::duration<double> diff = end-start;
@@ -144,7 +147,7 @@ read blocks of records (person), or one by one, and add the key and record num i
     SortByPIN(pinSortedArray, array_size);
 
     // then write to binary file
-    
+    WriteBin();
 
 // end of code edits
 
