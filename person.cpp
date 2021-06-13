@@ -133,12 +133,15 @@ for (unsigned int i = 0; i < array_size; ++i) {
 // FIXME: katherine work on this!
 void WriteBin(DualData sortedArrayByPin[], ofstream &oppm) {
 // for each pixel assign to color and then turn back to binary
-// Do I need to be using blocks right here? I think I Do 
-   for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
-     unsigned int p = DualData.pin;
-     unsigned int r = DualData.ID;
-     oppm.write(reinterpret_cast<char *>(&p), 1);
-     oppm.write(reinterpret_cast<char *>(&r), 1);
+// FIXME Do I need to be using blocks right here? I think I Do ?
+// FIXME instead of blocks rn this is writing each one but i guess that works
+   for (int i = 0; i < sizeof(sortedArrayByPin)/sizeof(int); ++i) {
+     unsigned int p = sortedArrayByPin[i].second;
+     unsigned int r = sortedArrayByPin[i].first;
+     // FIXME reinterpret cast should change from int to char
+     oppm.write(reinterpret_cast<char *>(&p), sizeof(p));
+     oppm.write(reinterpret_cast<char *>(&r), sizeof(r));
+     // FIXME: the key line: myfile2.write((char*)&persons, sizeof(Person) * BLOCK_SIZE);
    }
  // close file
  oppm.close();
