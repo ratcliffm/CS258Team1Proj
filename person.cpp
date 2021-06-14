@@ -164,6 +164,7 @@ because otherwise wont we have to read and construct a new array every time?
 even if the info is written in binary, i don't know how to make it an array structure in binary.
 so trying to adapt to copy old search style but with the binary algorithm?
 */
+
 Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // open the binary file, read it in blocks and perform a binary search 
 
@@ -183,37 +184,46 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     }
     */
     
+    
     // Starts at the beginning of the file
     ppm.seekg(0, ppm.beg);
 
-    // loops until the end of the file is reached 
+    // Loops until the end of the file is reached 
     while (!ppm.eof()) {
 
     }
 
+    int elmt_size = 4;
+
+    
 
     Person p;
     
     // Set BEG = lower_bound
-    goto_first_person();
     int beg = 0;
+    
+    // Getting the length of the file
+    ppm.seekg(0, ppm.end);
+    int length = ppm.tellg();
+    ppm.seekg(0, ppm.beg);
+
     // Set END = upper_bound
     // K's FIXME: and can this upper bound be the total array size (which is already an established variable)?
-    int end;
+    int end = length / 4;
     // Set POS = -1
     int pos = -1;
 
     int mid;
+    int current_elmt;
 
     while (beg <= end) {
         mid = (beg + end) / 2;
-        // IF (ARR[MID] == pin_n)
-        if () {
+        current_elmt = read_elmt_by_index(mid).second;
+        if (current_elmt == pin_n) {
             pos = mid;
             cout << "Position: " << pos << endl;
             break;
-        // ELSE IF (ARR[MID] > pin_n)
-        } else if () {
+        } else if (current_elmt > pin_n) {
             end = mid - 1;
         } else {
             beg = mid + 1;
@@ -245,6 +255,13 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // }
 
 }
+
+// FIXME fill this out
+DualData read_elmt_by_index(int index) {
+    DualData dd;
+    return dd;
+}
+
 // End of Emily's code
 
 // End of team written code. 
@@ -261,7 +278,9 @@ Person PersonData::get_current_person(){
 
     if (current >= size){
         cout << "There is no more person!" << endl;
-        return (Person){};
+        //return (Person){};
+        Person p;
+        return p;
     }
 
     Person p = get_person_by_id(current);
