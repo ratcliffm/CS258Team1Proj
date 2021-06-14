@@ -56,4 +56,4 @@ void SortByPIN(DualData the_array[], int array_size);
 // write function stores the sorted array in a new binary file 
 void WriteBin(DualData sortedArrayByPin[], fstream &oppm, int size_of_array);
 
-
+Person read_person(int pos, fstream &myfile);

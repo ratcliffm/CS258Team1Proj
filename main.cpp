@@ -56,7 +56,7 @@ void searching_person(PersonData &pd, fstream &ppm){
 }
 
 // ADDED: function that reads from binary, from readdata.cpp
-Person read_person(int pos, fstream myfile){
+Person read_person(int pos, fstream &myfile){
 
     Person p;
 

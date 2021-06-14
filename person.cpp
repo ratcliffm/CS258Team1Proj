@@ -45,7 +45,7 @@ bool Person::isEmpty(){
 PersonData::PersonData(){
     current = 0;
     // NOTE: myfile is person.bin (binary)
-    myfile = fstream("person.bin", ios::in | ios::out | ios::binary);
+    myfile.open("person.bin", ios::in | ios::out | ios::binary);
 
     update_size();
 
@@ -89,7 +89,8 @@ Person PersonData::get_person_by_id(int id){
 
     } else {
         cout << "No person with id " << id << endl;
-        return (Person){};
+        //return (Person){};
+        return p;
     }
 
 }
@@ -135,6 +136,7 @@ void WriteBin(DualData sortedArrayByPin[], fstream &oppm, int size_of_array) {
 
 // FIXME: Emily is working on this part!
 
+/*
 // Original version of the get_person_by_pin function written by Fabrizzio
 Person PersonData::linear_search(int pin) {
     Person p;
@@ -150,6 +152,7 @@ Person PersonData::linear_search(int pin) {
 
     return (Person){};
 }
+*/
 
 
 // Code that Frabrizzio wrote and comments on what we need to do: 
@@ -180,8 +183,10 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     }
     */
     
+    // Starts at the beginning of the file
     ppm.seekg(0, ppm.beg);
 
+    // loops until the end of the file is reached 
     while (!ppm.eof()) {
 
     }
@@ -190,8 +195,8 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     Person p;
     
     // Set BEG = lower_bound
-    // K's FIXME: can lower bound (beg) initially just be 0?
-    int beg = goto_first_person();
+    goto_first_person();
+    int beg = 0;
     // Set END = upper_bound
     // K's FIXME: and can this upper bound be the total array size (which is already an established variable)?
     int end;
@@ -202,7 +207,7 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
     while (beg <= end) {
         mid = (beg + end) / 2;
-        //  IF (ARR[MID] == pin_n)
+        // IF (ARR[MID] == pin_n)
         if () {
             pos = mid;
             cout << "Position: " << pos << endl;
