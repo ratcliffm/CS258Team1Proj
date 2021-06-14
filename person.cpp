@@ -195,8 +195,6 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
     int elmt_size = 4;
 
-    
-
     Person p;
     
     // Set BEG = lower_bound
@@ -210,6 +208,7 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // Set END = upper_bound
     // K's FIXME: and can this upper bound be the total array size (which is already an established variable)?
     int end = length / 4;
+
     // Set POS = -1
     int pos = -1;
 
@@ -217,18 +216,31 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     int current_elmt;
 
     while (beg <= end) {
+        // mid to the middle of the file
         mid = (beg + end) / 2;
+        // calls read_elmt_by_index, which retrieves the id and pin
+        // assigns the second element in the returned pair (aka the pin) to be the current elmt
         current_elmt = read_elmt_by_index(mid).second;
+        
+        // if the current elmt matches the pin,
+        // the search was successful and pos is set to that position
         if (current_elmt == pin_n) {
             pos = mid;
             cout << "Position: " << pos << endl;
             break;
-        } else if (current_elmt > pin_n) {
+        }
+        // if the current_elmt is greater than the pin,
+        // the end is reset to the mid - 1
+        else if (current_elmt > pin_n) {
             end = mid - 1;
-        } else {
+        } 
+        // otherwise, the current_elmt is less than the pin,
+        // the beg is set to mid + 1
+        else {
             beg = mid + 1;
         }
 
+        // if position remains unchanged, the pin wasn't found and an error is displayed
         if (pos = -1) {
             cout << "Pin not found, search unsuccessful" << endl;
             return p;
@@ -237,6 +249,13 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     }
 
     return p;
+
+    // General algorithm for binary search
+
+    // Set BEG = lower_bound
+    // Set END = upper_bound
+    // Set POS = -1;
+    // Set VAL = pin_n;
 
     // While (BEG <= END) {
     //  Set MID = ((BEG + END) / 2)
@@ -262,9 +281,6 @@ DualData read_elmt_by_index(int index) {
     return dd;
 }
 
-// End of Emily's code
-
-// End of team written code. 
 
 void PersonData::goto_first_person(){
     myfile.seekg(0, ios::beg);
@@ -289,6 +305,10 @@ Person PersonData::get_current_person(){
     return p;
 
 }
+
+// End of Emily's code
+
+// End of team written code. 
 
 int PersonData::add_person(Person &p){
 
