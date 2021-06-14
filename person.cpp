@@ -216,12 +216,12 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     int current_elmt;
 
     while (beg <= end) {
-        // mid to the middle of the file
+        // mid to the middle of the data
         mid = (beg + end) / 2;
         // calls read_elmt_by_index, which retrieves the id and pin
         // assigns the second element in the returned pair (aka the pin) to be the current elmt
         current_elmt = read_elmt_by_index(mid).second;
-        
+
         // if the current elmt matches the pin,
         // the search was successful and pos is set to that position
         if (current_elmt == pin_n) {
@@ -275,7 +275,7 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
 }
 
-// FIXME fill this out
+// FIXME fill this out, Emily's working on this
 DualData read_elmt_by_index(int index) {
     DualData dd;
     return dd;
