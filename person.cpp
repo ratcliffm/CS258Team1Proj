@@ -221,6 +221,7 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
         // if position remains unchanged, the pin wasn't found and an error is displayed
         if (pos = -1) {
             cout << "Pin not found, search unsuccessful" << endl;
+            // NOTE: p is blank, using in return for convenience
             return p;
         }
 
