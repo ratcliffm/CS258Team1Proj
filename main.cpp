@@ -156,7 +156,6 @@ int main () {
         WriteBin(pinSortedArray, workingFile, array_size);
 
         // use binary file to search 
-        // FIXME searching function here will be udpated in person.cpp to be a binary search
         searching_person(pd, workingFile);
     }
     else {
