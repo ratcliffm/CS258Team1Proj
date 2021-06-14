@@ -94,17 +94,7 @@ Person PersonData::get_person_by_id(int id){
 
 }
 
-/* This section of the file is sort of just my thoughts/steps we need to take, 
-please feel free to change any code as you see fit. 
-I used person.cpp because most of it will probalby end up going in here since the 
-following function is what we need to change. This is just a starting place 
-so we can sort of see what needs ot be done. */ 
-
-// FIXME: moved creation of array to main
-
-/* goal: "You can create an array of your index structure, 
-read blocks of records (person), or one by one, and add the key and record num in each array position. "
-*/
+// FIXME: Code edits zone below
 
 // sort the array by pin 
 // passing array by address so it will be modified outside of function
@@ -164,11 +154,17 @@ Person PersonData::linear_search(int pin) {
 
 // Code that Frabrizzio wrote and comments on what we need to do: 
 // We need to update this function to take in the sorted array file and use binary search
-Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
-    // open the binary file
-    // read it in blocks and perform a binary search 
 
-    // The chunk below is just pasted for reference. Will be removed before submission.
+/* FIXME k's note: because its so weird to read the new file, 
+i'm thinkin of just copying the old style with new structs
+because otherwise wont we have to read and construct a new array every time? 
+even if the info is written in binary, i don't know how to make it an array structure in binary.
+so trying to adapt to copy old search style but with the binary algorithm?
+*/
+Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
+    // open the binary file, read it in blocks and perform a binary search 
+
+    // FIXME The chunk below is just pasted for reference. Will be removed before submission.
     /*
     // FIXME instead of blocks rn this is writing each one but i guess that works
     for (int i = 0; i < sizeof(sortedArrayByPin)/sizeof(int); ++i) {
