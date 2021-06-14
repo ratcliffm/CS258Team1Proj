@@ -168,34 +168,8 @@ so trying to adapt to copy old search style but with the binary algorithm?
 Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // open the binary file, read it in blocks and perform a binary search 
 
-    // FIXME The chunk below is just pasted for reference. Will be removed before submission.
-    /*
-    // FIXME instead of blocks rn this is writing each one but i guess that works
-    for (int i = 0; i < sizeof(sortedArrayByPin)/sizeof(int); ++i) {
-        unsigned int p = sortedArrayByPin[i].second;
-        unsigned int r = sortedArrayByPin[i].first;
-        // FIXME reinterpret cast should change from int to char
-        oppm.write(reinterpret_cast<char *>(&p), sizeof(p));
-        oppm.write(reinterpret_cast<char *>(&r), sizeof(r));
-        // FIXME: the key line: myfile2.write((char*)&persons, sizeof(Person) * BLOCK_SIZE);
-    }
-    // close file
-    oppm.close();
-    }
-    */
-    
-    
-    // Starts at the beginning of the file
-    ppm.seekg(0, ppm.beg);
-
-    // Loops until the end of the file is reached 
-    while (!ppm.eof()) {
-
-    }
-
-    int elmt_size = 4;
-
     Person p;
+    int elmt_size = 4;
     
     // Set BEG = lower_bound
     int beg = 0;
@@ -206,35 +180,39 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     ppm.seekg(0, ppm.beg);
 
     // Set END = upper_bound
-    // K's FIXME: and can this upper bound be the total array size (which is already an established variable)?
-    int end = length / 4;
+    int end = length / elmt_size;
 
     // Set POS = -1
     int pos = -1;
 
     int mid;
-    int current_elmt;
+    int current_elmt_pin;
+    int current_elmt_id;
 
     while (beg <= end) {
         // mid to the middle of the data
         mid = (beg + end) / 2;
         // calls read_elmt_by_index, which retrieves the id and pin
-        // assigns the second element in the returned pair (aka the pin) to be the current elmt
-        current_elmt = read_elmt_by_index(mid, ppm).second;
+        // assigns the second element in the returned pair (aka the pin) to be the current_elmt_pin
+        current_elmt_pin = read_elmt_by_index(mid, ppm).second;
+        current_elmt_id = read_elmt_by_index(mid, ppm).first;
 
-        // if the current elmt matches the pin,
+        // if the current_elmt_pin matches the pin,
         // the search was successful and pos is set to that position
-        if (current_elmt == pin_n) {
+        // the corresponding id is then entered into get_person_by_id
+        // and the returned Person is assigned to p
+        if (current_elmt_pin == pin_n) {
             pos = mid;
             cout << "Position: " << pos << endl;
+            p = get_person_by_id(current_elmt_id);
             break;
         }
-        // if the current_elmt is greater than the pin,
+        // if the current_elmt_pin is greater than the pin,
         // the end is reset to the mid - 1
-        else if (current_elmt > pin_n) {
+        else if (current_elmt_pin > pin_n) {
             end = mid - 1;
         } 
-        // otherwise, the current_elmt is less than the pin,
+        // otherwise, the current_elmt_pin is less than the pin,
         // the beg is set to mid + 1
         else {
             beg = mid + 1;
