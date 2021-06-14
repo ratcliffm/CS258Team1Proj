@@ -57,4 +57,4 @@ void SortByPIN(DualData the_array[], int array_size);
 void WriteBin(DualData sortedArrayByPin[], fstream &oppm, int size_of_array);
 
 Person read_person(int pos, fstream &myfile);
-DualData read_elmt_by_index(int index);
+DualData read_elmt_by_index(int index, fstream &ppm);

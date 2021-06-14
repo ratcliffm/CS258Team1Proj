@@ -220,7 +220,7 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
         mid = (beg + end) / 2;
         // calls read_elmt_by_index, which retrieves the id and pin
         // assigns the second element in the returned pair (aka the pin) to be the current elmt
-        current_elmt = read_elmt_by_index(mid).second;
+        current_elmt = read_elmt_by_index(mid, ppm).second;
 
         // if the current elmt matches the pin,
         // the search was successful and pos is set to that position
@@ -276,11 +276,21 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 }
 
 // FIXME fill this out, Emily's working on this
-// this function reads through the binary file and retrieves the id and pin information
-// located at the given index.
+// This function reads through the binary file 
+// and retrieves the id and pin information located at the given index.
 // It returns a DualData type containing id and pin
-DualData read_elmt_by_index(int index) {
+DualData read_elmt_by_index(int index, fstream &ppm) {
     DualData dd;
+
+    int dd_size = 4;
+
+    // sets position to the given index
+    ppm.seekg(index * dd_size);
+
+    // reads in the id and pin at the given index and stores in dd
+    ppm.read(reinterpret_cast<char *>(&dd.second), sizeof(dd.second));
+    ppm.read(reinterpret_cast<char *>(&dd.first), sizeof(dd.first));
+
     return dd;
 }
 
