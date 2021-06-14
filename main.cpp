@@ -159,6 +159,10 @@ int main () {
         // FIXME searching function here will be udpated in person.cpp to be a binary search
         searching_person(pd, workingFile);
     }
+    else {
+        // error message
+        cout << "Error: Failure to open WORKING BINARY FILE" << endl;
+    }
 
     // end of code edits
 
