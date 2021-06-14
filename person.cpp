@@ -127,62 +127,21 @@ void SortByPIN(DualData the_array[], int array_size) {
    }
    
 // write out the new array into a new binary file
-// FIXME: katherine work on this!
-void WriteBin(DualData sortedArrayByPin[], ofstream &oppm) {
-// for each pixel assign to color and then turn back to binary
-// FIXME Do I need to be using blocks right here? I think I Do ?
-// FIXME instead of blocks rn this is writing each one but i guess that works
-   for (int i = 0; i < sizeof(sortedArrayByPin)/sizeof(int); ++i) {
+void WriteBin(DualData sortedArrayByPin[], ofstream &oppm, int size_of_array) {
+// loops through array size (avoids issue with sizeof(array))
+   for (int i = 0; i < size_of_array; ++i) {
+    // identify p (pin) and r (record id)
      unsigned int p = sortedArrayByPin[i].second;
      unsigned int r = sortedArrayByPin[i].first;
-     // FIXME reinterpret cast should change from int to char
+     // reinterpret cast should change from int to char
+     // write function will write to the binary file entered for ofstream
      oppm.write(reinterpret_cast<char *>(&p), sizeof(p));
      oppm.write(reinterpret_cast<char *>(&r), sizeof(r));
-     // FIXME: the key line: myfile2.write((char*)&persons, sizeof(Person) * BLOCK_SIZE);
-   }
+    // loop until every pair is written to file in pin, record order
+    }
  // close file
  oppm.close();
 }
-
-// use new binary file as input for get_person_by_pin 
-// FIXME: what is this portion??
-int n = sizeof(newArray) / sizeof(newArray[0]);
-   quickSort(newArray, 0, n - 1);
-   
- 
-int partition (int newArray[], int low, int high)
-{
-   int pivot = newArray[high]; // pivot
-   int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
-   for (int j = low; j <= high - 1; j++)
-   {
-       // If current element is smaller than the pivot
-       if (newArray[j] < pivot)
-       {
-           i++; // increment index of smaller element
-           swap(&newArray[i], &newArray[j]);
-       }
-   }
-   swap(&newArray[i + 1], &newArray[high]);
-   return (i + 1);
-}
-/* The main function that implements QuickSort
-arr[] --> Array to be sorted,
-low --> Starting index,
-high --> Ending index */
-void quickSort(int newArray[], int low, int high)
-{
-   if (low < high){
-       /* pi is partitioning index, arr[p] is now
-       at right place */
-       int pi = partition(newArray, low, high);
-       // Separately sort elements before
-       // partition and after partition
-       quickSort(newArray, low, pi - 1);
-       quickSort(newArray, pi + 1, high);
-   }
-}
-
 
 // FIXME: Emily is working on this part!
 

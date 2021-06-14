@@ -80,7 +80,7 @@ int main () {
 
     // FIXME changes around array building will have to occur here before search
 
-    
+    // FIXME there should be a call to get_person_by_pin here
 
     auto end = std::chrono::steady_clock::now();   
     std::chrono::duration<double> diff = end-start;
@@ -104,12 +104,15 @@ int main () {
     read blocks of records (person), or one by one, and add the key and record num in each array position. "
     */
 
+   // incorporating struct 
+    PersonData PD_1;
     // make person.bin == myfile stream
-    ifstream infile ("person.bin", ios::in | ios::out |ios::binary);
+    PD_1.myfile << ("person.bin", ios::in | ios::out |ios::binary);
+  
     // check if myfile is open
-    if (infile.is_open()) {
+    if (PD_1.myfile.is_open()) {
         // call gotoFirstPerson to set seeker at beginning of file
-        goto_first_person();
+        PD_1.goto_first_person();
         // new iterator for keeping track of array count
         // outside of loops so it will go 0-999,999
         int array_count = 0;
@@ -118,9 +121,10 @@ int main () {
             // iteration begins at 0
             int i = 0; 
             // continue while end of file not reached
-            while ( !infile.eof()) {        
+            while ( !PD_1.myfile.eof()) {        
                 // goes to position i in person.bin and reads a person struct
-                Person person_input = read_person(array_count, infile);
+                // FIXME: the error i get on this line below is weird and might be related to my compiler.... 
+                Person person_input = read_person(array_count, PD_1.myfile);
                 // first part of array pair is the record ID
                 // starts at 1 because the first person is record 1, not record 0
                 pinSortedArray[array_count].first = array_count + 1; 
@@ -142,14 +146,16 @@ int main () {
 
     // assume array has been built now
     // sorting time
-    // FIXME: i think this function needs review in person.cpp
+    // FIXME: move function here from person.cpp
     SortByPIN(pinSortedArray, array_size);
+
+
 
     ofstream workingFile ("workingFile.bin", ios::out |ios::binary); 
     if (workingFile.is_open()){
         
         // then write to binary file
-        WriteBin(pinSortedArray, workingFile);
+        WriteBin(pinSortedArray, workingFile, array_size);
 
         // use binary file to search 
         // FIXME searching function here will be udpated in person.cpp to be a binary search

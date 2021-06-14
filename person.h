@@ -51,7 +51,9 @@ typedef pair<int,int> DualData;
 // DualData is the pair of ints where it's ordered <record id, PIN>
 
 // new functions declarations
+// sorting function sorts the array of indexed pairs
 void SortByPIN(DualData the_array[], int array_size);
-// FIXME add write bin fx
+// write function stores the sorted array in a new binary file 
+void WriteBin(DualData sortedArrayByPin[], ofstream &oppm, int size_of_array);
 
 
