@@ -72,7 +72,7 @@ PersonData::~PersonData(){
     myfile.close();
 }
 
-// this will be staying this way (functon already completed by Fabrizzio)
+// this will be staying this way (functon already completed)
 Person PersonData::get_person_by_id(int id){
 
     Person p;
@@ -98,7 +98,7 @@ Person PersonData::get_person_by_id(int id){
 
 }
 
-// FIXME: Code edits zone below
+// TEAM WRITTEN CODE STARTS HERE
 
 // sort the array by pin 
 // passing array by address so it will be modified outside of function
@@ -137,10 +137,8 @@ void WriteBin(DualData sortedArrayByPin[], fstream &oppm, int size_of_array) {
  oppm.close();
 }
 
-// FIXME: Emily is working on this part!
 
-/*
-// Original version of the get_person_by_pin function written by Fabrizzio
+/* Original version of the get_person_by_pin function that performs a linear search
 Person PersonData::linear_search(int pin) {
     Person p;
     char buff[PERSON_SIZE];
@@ -157,16 +155,7 @@ Person PersonData::linear_search(int pin) {
 }
 */
 
-
-// Code that Frabrizzio wrote and comments on what we need to do: 
-// We need to update this function to take in the sorted array file and use binary search
-
-/* FIXME k's note: because its so weird to read the new file, 
-i'm thinkin of just copying the old style with new structs
-because otherwise wont we have to read and construct a new array every time? 
-even if the info is written in binary, i don't know how to make it an array structure in binary.
-so trying to adapt to copy old search style but with the binary algorithm?
-*/
+// Updated above function to take in the sorted array file and use binary search
 
 Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // open the binary file, read it in blocks and perform a binary search 
@@ -232,7 +221,7 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
     return p;
 
-    // General algorithm for binary search
+    // General algorithm for binary search is below:
 
     // Set BEG = lower_bound
     // Set END = upper_bound
@@ -257,13 +246,14 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 
 }
 
-// FIXME fill this out, Emily's working on this
-// This function reads through the binary file 
-// and retrieves the id and pin information located at the given index.
-// It returns a DualData type containing id and pin
+/* This function reads through the binary file 
+and retrieves the id and pin information located at the given index.
+It returns a DualData type containing the record id and pin
+*/
 DualData read_elmt_by_index(int index, fstream &ppm) {
     DualData dd;
 
+    // int size is 4
     int dd_size = 4;
 
     // sets position to the given index
@@ -276,6 +266,25 @@ DualData read_elmt_by_index(int index, fstream &ppm) {
     return dd;
 }
 
+// editted add person so it adds to the stored array
+int PersonData::add_person(Person &p, fstream &bin_file){
+
+    myfile.seekp(0, ios::end);
+    myfile.write((char*)&p, sizeof(Person));
+    update_size();
+
+    // add person to the stored array also
+     unsigned int p = p.pin_n;
+     unsigned int r = size;
+     // reinterpret cast should change from int to char
+     // write function will write to the binary file entered for ofstream
+     bin_file.write(reinterpret_cast<char *>(&p), sizeof(p));
+     bin_file.write(reinterpret_cast<char *>(&r), sizeof(r));
+
+    return size;
+}
+
+// TEAM WRITTEN CODE ENDS HERE
 
 void PersonData::goto_first_person(){
     myfile.seekg(0, ios::beg);
@@ -301,16 +310,4 @@ Person PersonData::get_current_person(){
 
 }
 
-// End of Emily's code
 
-// End of team written code. 
-
-int PersonData::add_person(Person &p){
-
-    myfile.seekp(0, ios::end);
-    myfile.write((char*)&p, sizeof(Person));
-    update_size();
-
-    return size;
-
-}

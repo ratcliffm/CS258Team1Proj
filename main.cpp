@@ -30,10 +30,10 @@ void show_person(Person p){
     cout << "---------------------------------------------" << endl;
 }
 
-void adding_person(PersonData &pd){
+void adding_person(PersonData &pd, fstream &bin_file){
 
     Person p("254-86-5682", "Bruce Springsteen", "bruces@gmail.com", "singer", "5-262-667-4762");
-    int line = pd.add_person(p);
+    int line = pd.add_person(p, bin_file);
 
     cout << "---------------------------------------------" << endl;
     cout << "Person added to Line: "<< line << endl;
@@ -70,27 +70,11 @@ Person read_person(int pos, fstream &myfile){
 
 // beginning of main
 int main () {
-  
+
     string line;
     PersonData pd;
 
-    adding_person(pd);
-
-    auto start = std::chrono::steady_clock::now();
-
-    // FIXME changes around array building will have to occur here before search
-
-    // FIXME there should be a call to get_person_by_pin here
-
-    auto end = std::chrono::steady_clock::now();   
-    std::chrono::duration<double> diff = end-start;
-
-    cout << "---------------------------------------------" << endl;
-    std::cout << "Elapsed time: " << diff.count() << " s\n";
-    cout << "---------------------------------------------" << endl;
-
-
-    // code edits
+    // START OF MAIN CODE EDITS
     // create a dynamic array to store the ID and Pin 
     // pointer for dynamically allocating array; pointer to DualData type
     DualData * pinSortedArray;
@@ -100,11 +84,13 @@ int main () {
     // allocate memory for array
     pinSortedArray = new DualData[array_size]; 
 
-    /* goal: "You can create an array of your index structure, 
-    read blocks of records (person), or one by one, and add the key and record num in each array position. "
+    /* goal: "create an array of your index structure, read blocks of records (person),
+     or one by one, and add the key and record num in each array position. "
     */
 
-   // incorporating struct 
+    // FIXME: ARRAY BUILDING SHOULD ONLY OCCUR IF NOT ALREADY DONE
+    
+    // incorporating struct 
     PersonData PD_1;
     // make person.bin == myfile stream
     PD_1.myfile << ("person.bin", ios::in | ios::out |ios::binary);
@@ -155,15 +141,31 @@ int main () {
         // write to binary file function is in person.cpp
         WriteBin(pinSortedArray, workingFile, array_size);
 
-        // use binary file to search 
-        searching_person(pd, workingFile);
+
     }
     else {
         // error message
-        cout << "Error: Failure to open WORKING BINARY FILE" << endl;
+        cerr << "Error: Failure to open WORKING BINARY FILE" << endl;
+
+        return 1;
     }
 
-    // end of code edits
+    // FIXME: THIS PART OCCURS EVERY TIME REGARDLESS OF WHETHER THE BINARY FILE ALREADY HAS BEEN BUILT
+
+    adding_person(pd, workingFile);
+
+    auto start = std::chrono::steady_clock::now();
+
+    // use binary file to search
+    // updated searching will perform a binary search instead of linear
+    searching_person(pd, workingFile);
+
+    auto end = std::chrono::steady_clock::now();   
+    std::chrono::duration<double> diff = end-start;
+
+    cout << "---------------------------------------------" << endl;
+    std::cout << "Elapsed time: " << diff.count() << " s\n";
+    cout << "---------------------------------------------" << endl;
 
     return 0;
 

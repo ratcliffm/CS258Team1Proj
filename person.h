@@ -39,7 +39,7 @@ struct PersonData{
     Person get_person_by_id(int id);
     Person get_person_by_pin(int pin_n, fstream &ppm);
     Person linear_search(int pin);
-    int add_person(Person &p);
+    int add_person(Person &p, fstream &bin_file);
     void goto_first_person();
     bool next_person();
     Person get_current_person();
@@ -47,14 +47,15 @@ struct PersonData{
 };
 
 // added typedef for indexed array of pairs
-typedef pair<int,int> DualData;
 // DualData is the pair of ints where it's ordered <record id, PIN>
+typedef pair<int,int> DualData;
 
-// new functions declarations
+// **new functions declarations**
 // sorting function sorts the array of indexed pairs
 void SortByPIN(DualData the_array[], int array_size);
 // write function stores the sorted array in a new binary file 
 void WriteBin(DualData sortedArrayByPin[], fstream &oppm, int size_of_array);
-
+// function that reads from binary, from readdata.cpp
 Person read_person(int pos, fstream &myfile);
+// reads through the binary file and retrieves the id and pin information located at the given index
 DualData read_elmt_by_index(int index, fstream &ppm);
