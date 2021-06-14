@@ -144,17 +144,15 @@ int main () {
         cout << "Error: Could Not Open File" << endl;
     }
 
-    // assume array has been built now
-    // sorting time
-    // FIXME: move function here from person.cpp
+    // array built --> needs to be sorted
+    // sorting function is in person.cpp 
     SortByPIN(pinSortedArray, array_size);
 
-
-
-    ofstream workingFile ("workingFile.bin", ios::out |ios::binary); 
+    // create new file stream for the array storage file
+    fstream workingFile ("workingFile.bin", ios::out |ios::binary); 
     if (workingFile.is_open()){
         
-        // then write to binary file
+        // write to binary file function is in person.cpp
         WriteBin(pinSortedArray, workingFile, array_size);
 
         // use binary file to search 

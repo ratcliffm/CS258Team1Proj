@@ -127,7 +127,7 @@ void SortByPIN(DualData the_array[], int array_size) {
    }
    
 // write out the new array into a new binary file
-void WriteBin(DualData sortedArrayByPin[], ofstream &oppm, int size_of_array) {
+void WriteBin(DualData sortedArrayByPin[], fstream &oppm, int size_of_array) {
 // loops through array size (avoids issue with sizeof(array))
    for (int i = 0; i < size_of_array; ++i) {
     // identify p (pin) and r (record id)
@@ -194,8 +194,10 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     Person p;
     
     // Set BEG = lower_bound
+    // K's FIXME: can lower bound (beg) initially just be 0?
     int beg = goto_first_person();
     // Set END = upper_bound
+    // K's FIXME: and can this upper bound be the total array size (which is already an established variable)?
     int end;
     // Set POS = -1
     int pos = -1;
