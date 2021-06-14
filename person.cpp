@@ -17,11 +17,14 @@ using namespace std;
 int convert_pin_n(std::string pin_s){
 
     char cpin_s[10];
+    //copies 3 characters in cpin_s and copies them to pin_s at the first index
     strncpy(&cpin_s[0], &pin_s[0], 3);
+    //copies 2 characters from cpin_s, and moves the position from 3 to 4 in pin_s
     strncpy(&cpin_s[3], &pin_s[4], 2);
+    //copies 4 characters from cpin_s, and moves the position from 5 to 7 in pin_s
     strncpy(&cpin_s[5], &pin_s[7], 4);
-    cpin_s[9] = '\n';
-
+    cpin_s[9] = '\n'; //null character for the last position, so no other characters can be copied after that
+    //returns converted/copied pin as an integer
     return atoi(cpin_s);
 
 }
@@ -37,7 +40,7 @@ Person::Person(string _pin, string _name, string _email, string _jobtitle, strin
     
 }
 
-bool Person::isEmpty(){
+bool Person::isEmpty(){ //if the person doesnt exist/the struct is empty, this function returns 0
     return (strlen(name) == 0);
 }
 
@@ -48,8 +51,8 @@ PersonData::PersonData(){
     myfile.open("person.bin", ios::in | ios::out | ios::binary);
 
     update_size();
-
-    myfile.seekg(0, ios::beg);
+    //seeks the beginning and end positions in the file
+    myfile.seekg(0, ios::beg); 
     myfile.seekp(0, ios::end);
 }
 
