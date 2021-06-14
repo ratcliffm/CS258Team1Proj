@@ -276,6 +276,9 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
 }
 
 // FIXME fill this out, Emily's working on this
+// this function reads through the binary file and retrieves the id and pin information
+// located at the given index.
+// It returns a DualData type containing id and pin
 DualData read_elmt_by_index(int index) {
     DualData dd;
     return dd;
