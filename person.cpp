@@ -212,6 +212,8 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // open the binary file
     // read it in blocks and perform a binary search 
 
+    // The chunk below is just pasted for reference. Will be removed before submission.
+    /*
     // FIXME instead of blocks rn this is writing each one but i guess that works
     for (int i = 0; i < sizeof(sortedArrayByPin)/sizeof(int); ++i) {
         unsigned int p = sortedArrayByPin[i].second;
@@ -224,11 +226,12 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // close file
     oppm.close();
     }
+    */
     
     ppm.seekg(0, ppm.beg);
 
     while (!ppm.eof()) {
-        
+
     }
 
 
