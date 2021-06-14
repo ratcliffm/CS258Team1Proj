@@ -110,25 +110,22 @@ read blocks of records (person), or one by one, and add the key and record num i
 // passing array by address so it will be modified outside of function
 void SortByPIN(DualData the_array[], int array_size) {
    DualData new_arr;
-   // sort through vector to return smallest coord
-   for (unsigned int i = 0; i < array_size; ++i) {
-       for (unsigned int j = i + 1; j < array_size; ++j) {
-       if (the_array[i] < the_array[j]) {
-           swap(the_array[i], the_array[j]);
+   // sort through vector to return smallest coord, stop before last element
+   for (unsigned int starter_i = 0; starter_i < array_size - 1; ++starter_i) {
+       // initally set the smallest as the first 
+        int smallestIndex = starter_i;
+        // nested loop for comparisons 
+       for (unsigned int current_i = starter_i + 1; current_i < array_size; ++current_i){
+       // swap if new one is smaller, second is the pin
+       if (the_array[current_i].second < the_array[smallestIndex].second) 
+           // replace the smallest
+           smallestIndex = current_i;
        }
+       // swap first with the newfound smallest element
+        swap(the_array[starter_i], the_array[smallestIndex]);
    } 
    }
-   // FIXME ZONE -- new arr is a PAIR... need to assign a first and second
-for (unsigned int i = 0; i < array_size; ++i) {
-       for (unsigned int j = i + 1; j < array_size; ++j) {
-           // FIXME -- WHAT ARE NEW ARR I AND J REPRESENTING?
-        new_arr[i] = the_array[i]; 
-        new_arr[j] = the_array[j]; 
-       }
-}
-// return nothing because array will simply be sorted
-}
-
+   
 // write out the new array into a new binary file
 // FIXME: katherine work on this!
 void WriteBin(DualData sortedArrayByPin[], ofstream &oppm) {
