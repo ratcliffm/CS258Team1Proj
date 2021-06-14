@@ -149,7 +149,6 @@ int main () {
     if (workingFile.is_open()){
         
         // then write to binary file
-        // FIXME: function needs arguments to run
         WriteBin(pinSortedArray, workingFile);
 
         // use binary file to search 

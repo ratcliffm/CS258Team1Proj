@@ -212,29 +212,23 @@ Person PersonData::get_person_by_pin(int pin_n, fstream &ppm){
     // open the binary file
     // read it in blocks and perform a binary search 
 
-    /*
-    // for each pixel assign to color and then turn back to binary
-    // Do I need to be using blocks right here? I think I Do 
-    for (int i = 0; i < sizeOf(sortedArrayByPin)/sizeof(int); ++i) {
-        unsigned int p = DualData.pin;
-        unsigned int r = DualData.ID;
-        oppm.write(reinterpret_cast<char *>(&p), 1);
-        oppm.write(reinterpret_cast<char *>(&r), 1);
+    // FIXME instead of blocks rn this is writing each one but i guess that works
+    for (int i = 0; i < sizeof(sortedArrayByPin)/sizeof(int); ++i) {
+        unsigned int p = sortedArrayByPin[i].second;
+        unsigned int r = sortedArrayByPin[i].first;
+        // FIXME reinterpret cast should change from int to char
+        oppm.write(reinterpret_cast<char *>(&p), sizeof(p));
+        oppm.write(reinterpret_cast<char *>(&r), sizeof(r));
+        // FIXME: the key line: myfile2.write((char*)&persons, sizeof(Person) * BLOCK_SIZE);
     }
     // close file
     oppm.close();
-    */
-
-
-    // getting the length of the file
-    if (ppm) {
-        ppm.seekg(0, ppm.end);
-        int length = ppm.tellg();
-        ppm.seekg(0, ppm.beg);
     }
     
-    while (ppm.eof()) {
-        ppm.read()
+    ppm.seekg(0, ppm.beg);
+
+    while (!ppm.eof()) {
+        
     }
 
 
