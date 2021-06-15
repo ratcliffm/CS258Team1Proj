@@ -274,11 +274,11 @@ int PersonData::add_person(Person &p, fstream &bin_file){
     update_size();
 
     // add person to the stored array also
-     unsigned int p = p.pin_n;
+     unsigned int pin_num = p.pin_n;
      unsigned int r = size;
      // reinterpret cast should change from int to char
      // write function will write to the binary file entered for ofstream
-     bin_file.write(reinterpret_cast<char *>(&p), sizeof(p));
+     bin_file.write(reinterpret_cast<char *>(&pin_num), sizeof(pin_num));
      bin_file.write(reinterpret_cast<char *>(&r), sizeof(r));
 
     return size;

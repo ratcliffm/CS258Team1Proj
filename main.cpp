@@ -87,9 +87,14 @@ int main () {
     /* goal: "create an array of your index structure, read blocks of records (person),
      or one by one, and add the key and record num in each array position. "
     */
-
-    // FIXME: ARRAY BUILDING SHOULD ONLY OCCUR IF NOT ALREADY DONE
     
+    // create new file stream for the array storage file
+    fstream workingFile ("workingFile.bin", ios::out |ios::binary); 
+
+    // check to see if the created array binary file fails or if it's already made and good
+    if(workingFile.fail()){
+    // file does not exist or other error
+
     // incorporating struct 
     PersonData PD_1;
     // make person.bin == myfile stream
@@ -127,46 +132,41 @@ int main () {
     }
     else {
         // error msg for failure to open
-        cout << "Error: Could Not Open File" << endl;
+        cout << "Error: Failure to open PERSON.BIN FILE" << endl;
     }
 
     // array built --> needs to be sorted
     // sorting function is in person.cpp 
     SortByPIN(pinSortedArray, array_size);
 
-    // create new file stream for the array storage file
-    fstream workingFile ("workingFile.bin", ios::out |ios::binary); 
-    if (workingFile.is_open()){
+    // open the file to write to
+    workingFile.is_open();
         
-        // write to binary file function is in person.cpp
-        WriteBin(pinSortedArray, workingFile, array_size);
-
+    // write to binary file function is in person.cpp
+     WriteBin(pinSortedArray, workingFile, array_size);
 
     }
-    else {
-        // error message
-        cerr << "Error: Failure to open WORKING BINARY FILE" << endl;
 
-        return 1;
-    }
-
-    // FIXME: THIS PART OCCURS EVERY TIME REGARDLESS OF WHETHER THE BINARY FILE ALREADY HAS BEEN BUILT
-
+    // this final portion will execute regardless of whether the array was already built and stored
+    
+    //adds new person to file person.bin and to the stored array 
     adding_person(pd, workingFile);
 
+    // start timer
     auto start = std::chrono::steady_clock::now();
 
     // use binary file to search
     // updated searching will perform a binary search instead of linear
     searching_person(pd, workingFile);
 
+    // stop timer
     auto end = std::chrono::steady_clock::now();   
     std::chrono::duration<double> diff = end-start;
 
+    // timer output
     cout << "---------------------------------------------" << endl;
     std::cout << "Elapsed time: " << diff.count() << " s\n";
     cout << "---------------------------------------------" << endl;
 
     return 0;
-
 }
