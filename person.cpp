@@ -26,7 +26,6 @@ int convert_pin_n(std::string pin_s){
     cpin_s[9] = '\n'; //null character for the last position, so no other characters can be copied after that
     //returns converted/copied pin as an integer
     return atoi(cpin_s);
-
 }
 
 Person::Person(string _pin, string _name, string _email, string _jobtitle, string _phone){
@@ -43,7 +42,6 @@ Person::Person(string _pin, string _name, string _email, string _jobtitle, strin
 bool Person::isEmpty(){ //if the person doesnt exist/the struct is empty, this function returns 0
     return (strlen(name) == 0);
 }
-
 
 PersonData::PersonData(){
     current = 0;
@@ -110,14 +108,14 @@ void SortByPIN(DualData the_array[], int array_size) {
         int smallestIndex = starter_i;
         // nested loop for comparisons 
        for (unsigned int current_i = starter_i + 1; current_i < array_size; ++current_i){
-       // swap if new one is smaller, second is the pin
-       if (the_array[current_i].second < the_array[smallestIndex].second) 
-           // replace the smallest
-           smallestIndex = current_i;
+        // swap if new one is smaller, second is the pin
+        if (the_array[current_i].second < the_array[smallestIndex].second) 
+            // replace the smallest
+            smallestIndex = current_i;
        }
        // swap first with the newfound smallest element
         swap(the_array[starter_i], the_array[smallestIndex]);
-   } 
+    } 
    }
    
 // write out the new array into a new binary file
@@ -274,12 +272,12 @@ int PersonData::add_person(Person &p, fstream &bin_file){
     update_size();
 
     // add person to the stored array also
-     unsigned int pin_num = p.pin_n;
-     unsigned int r = size;
-     // reinterpret cast should change from int to char
-     // write function will write to the binary file entered for ofstream
-     bin_file.write(reinterpret_cast<char *>(&pin_num), sizeof(pin_num));
-     bin_file.write(reinterpret_cast<char *>(&r), sizeof(r));
+    unsigned int pin_num = p.pin_n;
+    unsigned int r = size;
+    // reinterpret cast should change from int to char
+    // write function will write to the binary file entered for ofstream
+    bin_file.write(reinterpret_cast<char *>(&pin_num), sizeof(pin_num));
+    bin_file.write(reinterpret_cast<char *>(&r), sizeof(r));
 
     return size;
 }

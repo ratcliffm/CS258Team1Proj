@@ -1,5 +1,5 @@
-// most work should be done in this file
-
+// Katherine Hardenbergh CS 258
+// most work done in this file
 
 #include <iostream>
 #include <string>
@@ -92,7 +92,7 @@ int main () {
     fstream workingFile ("workingFile.bin", ios::out |ios::binary); 
 
     // check to see if the created array binary file fails or if it's already made and good
-    if(workingFile.fail()){
+    if (workingFile.fail()) {
     // file does not exist or other error
 
     // incorporating struct 
@@ -144,7 +144,6 @@ int main () {
         
     // write to binary file function is in person.cpp
      WriteBin(pinSortedArray, workingFile, array_size);
-
     }
 
     // this final portion will execute regardless of whether the array was already built and stored
